@@ -31,3 +31,14 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Working notes kept out of the repo; the README is self-contained
+MECH_INTERP_EXPERIMENTS.md
+NEXT_EXPERIMENTS.md
+EXPERIMENT_SHORTLIST.md
+EXPERIMENT_SHORTLIST*.md
+analysis/RESULTS.md
+RFMs.md
+SPECULATIVE_ABLATION.md
+SELF*.md
+trained-attack-policies*.md
