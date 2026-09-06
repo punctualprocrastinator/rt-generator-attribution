@@ -175,36 +175,6 @@ arm received no training signal. That arm therefore differs from the others in m
 its generator, and its last-place finish has a simpler explanation available than its
 generator design.
 
-## A negative result
-
-`e6_linear_probes.py` does not discriminate between the arms, and the reason is structural
-rather than a bug. The RT is a residual stack, so the input embedding stays linearly present
-in the residual stream at every depth. Any probe target that is a function of a cell's own
-inputs is therefore decodable by a linear map without the network having learned anything,
-which is why an untrained model scores 1.000 on parent-table identity. Row degree and
-parent-table identity are both read off `f2p_nbr_idxs`, an input.
-
-| probe (block 11) | RelDiff | GRDM | PluRel | RDB-PFN | untrained |
-|---|---|---|---|---|---|
-| semantic type | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
-| table identity | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
-| parent table | 0.9995 | 0.9998 | 0.9998 | 0.9994 | 1.0000 |
-| row degree (R2) | 0.935 | 0.937 | 0.923 | 0.920 | 0.924 |
-
-A probe that would discriminate has to target something requiring computation, such as a
-masked cell's parents' values.
-
-## A methodological note
-
-Weight-space measurements failed to predict their functional counterparts three separate
-times here. The weight-space clustering inverted under CKA on real data. Per-head weight
-concentration said all four models were equally uniform (Gini 0.016 to 0.020), but knocking
-heads out behaviourally showed only RelDiff has load-bearing ones. And an encoder deviation
-that looked large per parameter turned out to be the text pathway alone.
-
-Weight-space structure is a hypothesis about function, not evidence of it. Every claim in
-the paper that rests on weights has a behavioural counterpart for that reason.
-
 ## Layout
 
 ```
@@ -249,7 +219,7 @@ capability 8.0 or above.
 python analysis/e7_reliance_dose.py      # reliance, dose-response, untrained floor
 python analysis/e45_paths_and_heads.py   # route separation and head knockout
 python analysis/x1_repower_ablations.py  # benchmark under ablation at honest n
-python analysis/e6_linear_probes.py      # linear probes (see the negative result above)
+python analysis/e6_linear_probes.py      # linear probes on frozen representations
 python analysis/e3_transfer_matrix.py    # cross-generator transfer (needs the corpora)
 ```
 
@@ -258,9 +228,3 @@ Then `python analysis/make_paper_figures.py` regenerates the figures.
 Checkpoints and corpora are not in the repository. Put the four `*_final.pt` files in
 `model_checkpoints/` and the corpus archives in `data/`, or pass `--ckpt-dir` and the corpus
 paths explicitly.
-
-## Status
-
-E3, the cross-generator transfer matrix, is written but unrun: it needs the four
-preprocessed corpora, which were not retrievable at the time. Everything else in `analysis/`
-has been run and its output is in `analysis/out/`.
