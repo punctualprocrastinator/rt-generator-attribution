@@ -1,0 +1,72 @@
+% Drop-in section for the E2 corpus measurement.
+% To include: put \input{section_e2} immediately before \section{Mechanistic fingerprint...}
+% Costs roughly half a page. Frees space by trimming Related Work (Sec. 6) and the
+% second paragraph of Sec. 3's "Behavioral reliance" discussion.
+
+\section{What the corpora make predictable}
+\label{sec:corpus}
+
+The account above rests on \emph{predictive necessity}: because the pretraining objective is
+masked-cell reconstruction, a corpus can only teach cross-table computation if its masked cells
+are hard to recover from their own row. That is a property of the data, not of any model, so we
+measure it directly and without involving the RT at all.
+
+For each corpus we sample 40 databases, recover the FK graph, and for each target column fit
+identical gradient-boosted regressors three times: from the target's own row; from its own row
+plus the columns of its FK parents; and from its own row plus aggregates over its FK children.
+The gain from adding relational features is the neighbour predictive information in that corpus.
+Splitting parents from children matters because the two map onto different routes in the RT: a
+cell reading its parents flows through the \texttt{feat} stream's parent-cell inclusion, while
+aggregation over children is what the \texttt{nbr} stream does. Scores are clipped to $[-1,1]$
+before differencing, since unbounded negative $R^2$ lets one diverged fit dominate a mean, and we
+report medians with 95\% bootstrap intervals.
+
+\begin{table}[t]
+\caption{Neighbour predictive information per corpus, measured with no RT involved (40 databases
+each; median, 95\% bootstrap CI). RelDiff is the only corpus in which reading a neighbouring table
+measurably helps recover a held-out cell. RDB-PFN is its mirror image: the most learnable
+within-row structure of any corpus and no relational signal at all.}
+\label{tab:e2}
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Corpus & Tasks & Own-row $R^2$ & Parent lift & Child lift \\
+\midrule
+RelDiff & 48  & 0.022 & \textbf{+0.072 [+0.018, +0.091]} & $-$0.001 \\
+PluRel  & 113 & 0.166 & +0.009 [+0.001, +0.022] & $-$0.000 \\
+RDB-PFN & 120 & 0.436 & +0.001 [$-$0.004, +0.009] & $-$0.005 \\
+GRDM    & 120 & $-$0.011 & $-$0.057 [$-$0.076, $-$0.044] & $-$0.105 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:e2} orders the generators the same way every downstream measurement does, and it
+does so before any model is trained. RelDiff's parent lift is eight times PluRel's and roughly
+seventy times RDB-PFN's, whose interval spans zero. Read as a share of the predictable signal,
+neighbours contribute 77\% for RelDiff, 5\% for PluRel and 0.1\% for RDB-PFN. RelDiff's cells are
+close to unrecoverable from their own row ($R^2$ 0.022) and become recoverable once a parent is
+visible, which is precisely the condition under which masked-cell reconstruction rewards learning
+to read across tables. RDB-PFN's profile --- the most predictable rows and no relational signal
+--- is the data-side counterpart of its benchmark behaviour, strong at short context and untouched
+by ablation.
+
+Two qualifications. Child lift is flat in every corpus, RelDiff included, so what its data
+rewards specifically is reading parents; the transfer to child-aggregation tasks at benchmark time
+is not something the corpus directly incentivises, and our aggregates (mean, standard deviation,
+count) may simply be too coarse to capture it. Second, GRDM's negative lift is best read alongside
+a property of its shipped corpus rather than its design: every string and datetime column was
+converted to a float and never converted back, so its databases carry no text or categorical
+columns at all (0 against RelDiff's 234 over the same references). The RT's text encoder and
+MiniLM pathway therefore received no signal in that arm, which is a confound worth stating
+plainly: the GRDM arm differs from the others in more than its generator.
+
+\paragraph{Diversity is not the mechanism.}
+A natural alternative is that RelDiff simply produces more diverse data. Measuring feature, table
+and cross-table diversity directly from the generated databases --- never through any of the four
+models, so the measurement cannot be an artifact of what it explains --- RelDiff is indeed most
+diverse on all three axes (1.10 / 0.57 / 1.04). But the ranking of the others does not track
+mechanism formation: PluRel exceeds GRDM on cross-table diversity (0.85 vs.\ 0.71) yet learns no
+usable relational computation (Table~\ref{tab:e7}), while GRDM does on in-distribution schemas.
+Diversity describes a generator's marginal output; predictive necessity describes whether values
+are \emph{coupled} to structure, and only the latter separates the four models.

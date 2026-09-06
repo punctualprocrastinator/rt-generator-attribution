@@ -1,0 +1,9 @@
+corpus,column_type,n_columns
+grdm,numeric,1719
+plurel,numeric,3764
+plurel,boolean,1775
+plurel,other,94
+rdbpfn,numeric,3178
+rdbpfn,other,9
+reldiff,numeric,1024
+reldiff,text_or_categorical,468

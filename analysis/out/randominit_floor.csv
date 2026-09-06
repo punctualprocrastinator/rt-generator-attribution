@@ -1,0 +1,7 @@
+measurement,stream_or_encoder,random_init_floor,trained_observed,ratio_to_floor,note
+head_concentration_gini,col,0.0004,0.016,40,"trained range 0.011-0.021"
+head_concentration_gini,feat,0.0004,0.035,88,"trained range 0.030-0.040"
+head_concentration_gini,nbr,0.0005,0.018,36,"trained range 0.016-0.020"
+crossmodel_cosine,enc_dict.number.weight,-0.0239,0.999985,,"floor from 4 independent inits"
+crossmodel_cosine,enc_dict.text.weight,0.0004,0.955666,,"floor from 4 independent inits"
+crossmodel_cosine,enc_dict.col_name.weight,-0.0003,0.985625,,"floor from 4 independent inits"

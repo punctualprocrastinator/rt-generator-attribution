@@ -1,0 +1,7 @@
+metric,value
+n_tensors_total,328
+n_params_total,19189635
+n_bitwise_identical_tensors,132
+identical_param_mass,115585
+min_raw_pairwise_cosine,0.9923969507217407
+max_raw_pairwise_cosine,0.9972805976867676

@@ -1,0 +1,9 @@
+db,task,target,kind,ctx_len,batch_size,split,n,status,auroc,pos_rate,seconds,oom_retries,generator,contaminated
+rel-stack,user-engagement,contribution,clf,30000,2,test,2048,ok,0.8649354460093897,0.029296875,206.3,0,reldiff,False
+rel-stack,user-badge,WillGetBadge,clf,30000,2,test,2048,ok,0.811736076108871,0.03125,112.7,0,reldiff,False
+rel-stack,user-engagement,contribution,clf,30000,2,test,2048,ok,0.6422157947686117,0.029296875,170.0,0,rdbpfn,False
+rel-stack,user-badge,WillGetBadge,clf,30000,2,test,2048,ok,0.7496810420866935,0.03125,112.7,0,rdbpfn,False
+rel-stack,user-engagement,contribution,clf,30000,2,test,2048,ok,0.6524019114688129,0.029296875,169.8,0,plurel,False
+rel-stack,user-badge,WillGetBadge,clf,30000,2,test,2048,ok,0.7559184412802419,0.03125,112.6,0,plurel,False
+rel-stack,user-engagement,contribution,clf,30000,2,test,2048,ok,0.5197434607645874,0.029296875,169.6,0,grdm,False
+rel-stack,user-badge,WillGetBadge,clf,30000,2,test,2048,ok,0.6518200289818548,0.03125,111.9,0,grdm,False

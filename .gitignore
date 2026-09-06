@@ -1,0 +1,33 @@
+# Large binaries. The four checkpoints are ~38 MB each and the pretraining corpora
+# ~1.5 GB; both are needed to reproduce but neither belongs in git. See the README for
+# where to put them.
+model_checkpoints/
+data/
+*.pt
+*.tar
+
+# Working directories and archives
+unzipped/
+workshop_outputs.zip
+paper/figs/*.pdf
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
+paper/*.fdb_latexmk
+paper/*.fls
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db

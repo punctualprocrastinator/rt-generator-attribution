@@ -1,0 +1,93 @@
+
+=== plurel: 40 databases
+   5/40 dbs, 15 tasks
+   10/40 dbs, 30 tasks
+   15/40 dbs, 45 tasks
+   [plurel-112/db] skipped: ValueError: columns overlap but no suffix specified: Index(['par_table_5_foreign_row_0', 'par_table_5_feature_3',
+       'par_table_5_feature_0', 'par_table_5_feature_4',
+       'par_table_5_feature_1', 'par_table_5_feature_5'],
+      dtype='object')
+   20/40 dbs, 59 tasks
+   25/40 dbs, 74 tasks
+   30/40 dbs, 89 tasks
+   [plurel-127/db] skipped: ValueError: columns overlap but no suffix specified: Index(['par_table_2_feature_38', 'par_table_2_feature_13',
+       'par_table_2_feature_31', 'par_table_2_feature_34',
+       'par_table_2_feature_36', 'par_table_2_feature_22',
+       'par_table_2_feature_39', 'par_table_2_feature_0',
+       'par_table_2_feature_1', 'par_table_2_feature_21',
+       'par_table_2_feature_30', 'par_table_2_feature_33',
+       'par_table_2_feature_24', 'par_table_2_feature_15',
+       'par_table_2_feature_17', 'par_table_2_feature_27',
+       'par_table_2_feature_12', 'par_table_2_feature_6',
+       'par_table_2_feature_8', 'par_table_2_feature_4',
+       'par_table_2_feature_28', 'par_table_2_feature_9',
+       'par_table_2_feature_37', 'par_table_2_feature_32',
+       'par_table_2_feature_5', 'par_table_2_feature_7',
+       'par_table_2_feature_26', 'par_table_2_feature_16'],
+      dtype='object')
+   [plurel-128/db] skipped: ValueError: columns overlap but no suffix specified: Index(['par_table_3_feature_0', 'par_table_3_feature_2',
+       'par_table_3_feature_3', 'par_table_3_feature_1'],
+      dtype='object')
+   35/40 dbs, 99 tasks
+   [plurel-130/db] skipped: ValueError: columns overlap but no suffix specified: Index(['par_table_7_feature_8', 'par_table_7_feature_4',
+       'par_table_7_feature_2', 'par_table_7_feature_12',
+       'par_table_7_feature_10', 'par_table_7_feature_5',
+       'par_table_7_feature_13', 'par_table_7_feature_6',
+       'par_table_7_feature_14', 'par_table_7_feature_11',
+       'par_table_7_feature_3', 'par_table_7_feature_0',
+       'par_table_7_feature_7'],
+      dtype='object')
+   40/40 dbs, 113 tasks
+
+=== rdbpfn: 40 databases
+   5/40 dbs, 128 tasks
+   10/40 dbs, 143 tasks
+   15/40 dbs, 158 tasks
+   20/40 dbs, 173 tasks
+   25/40 dbs, 188 tasks
+   30/40 dbs, 203 tasks
+   35/40 dbs, 218 tasks
+   40/40 dbs, 233 tasks
+
+=== reldiff: 20 databases
+   5/20 dbs, 248 tasks
+   10/20 dbs, 263 tasks
+   15/20 dbs, 278 tasks
+   20/20 dbs, 281 tasks
+
+=== grdm: 40 databases
+   5/40 dbs, 296 tasks
+   10/40 dbs, 311 tasks
+   15/40 dbs, 326 tasks
+   20/40 dbs, 341 tasks
+   25/40 dbs, 356 tasks
+   30/40 dbs, 371 tasks
+   35/40 dbs, 386 tasks
+   40/40 dbs, 401 tasks
+
+==============================================================================
+corpus     tasks   R2 own  parent lift  child lift
+grdm         120  -10.513   -3681.7043  -3093.1862
+plurel       113    0.293      +0.0528     +0.1031
+rdbpfn       120    0.413      +0.0145     -0.0012
+reldiff       48    0.272      +0.1016     +0.0408
+
+type census: {
+  "plurel": {
+    "numeric": 3764,
+    "boolean": 1775,
+    "other": 94
+  },
+  "rdbpfn": {
+    "numeric": 3178,
+    "other": 9
+  },
+  "reldiff": {
+    "numeric": 1024,
+    "text_or_categorical": 468
+  },
+  "grdm": {
+    "numeric": 1719
+  }
+}
+wrote analysis\out/e2_results.json and e2_per_task.csv

@@ -1,0 +1,82 @@
+\section*{NeurIPS Paper Checklist}
+
+\begin{enumerate}
+
+\item {\bf Claims}
+    \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The abstract and Sec.~\ref{sec:intro} state exactly the three contributions reported in Sec.~\ref{sec:corpus}--\ref{sec:bridge}: a model-free measurement of neighbour predictive information in the corpora, a weight-space diagnostic, and its causal validation via ablation; we do not claim generalization beyond the single architecture and objective studied (see Limitations).
+
+\item {\bf Limitations}
+    \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section 7 (Discussion and limitations) discusses the single-architecture/single-objective scope, the single pretraining run per generator arm at a short shared step budget, and that reference-conditioning is neither necessary nor sufficient for mechanism formation.
+
+\item {\bf Theory assumptions and proofs}
+    \item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The paper is purely empirical/mechanistic; it contains no theorems or formal proofs.
+
+\item {\bf Experimental result reproducibility}
+    \item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results of the paper to the extent that it affects the main claims and/or conclusions of the paper (regardless of whether the code and data are provided or not)?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Sec.~\ref{sec:setup} specifies the shared architecture, initialization, step budget, and objective across the four checkpoints; Sec.~\ref{sec:mech}--\ref{sec:bridge} specify the exact probe/ablation protocols (corruption types, probe databases, context lengths, and the causal-ablation predictions registered before running X1) needed to reproduce each table.
+
+\item {\bf Open access to data and code}
+    \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
+    \item[] Answer: \answerNo{}
+    \item[] Justification: The four pretraining corpora, checkpoints, and analysis code are being prepared for a public release accompanying the camera-ready version and are not yet hosted at an anonymized URL at submission time.
+
+\item {\bf Experimental setting/details}
+    \item[] Question: Does the paper specify all the training and test details (e.g., data splits, hyperparameters, how they were chosen, type of optimizer) necessary to understand the results?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Sec.~\ref{sec:setup} specifies the architecture, encoders, and shared pretraining protocol; Sec.~\ref{sec:mech} specifies the held-out, out-of-reference-set evaluation databases and probe-batch protocol used for every mechanistic measurement.
+
+\item {\bf Experiment statistical significance}
+    \item[] Answer: \answerNo{}
+    \item[] Justification: Each generator arm corresponds to a single pretraining run (shared compute budget across four arms), so we do not report error bars across seeds; we mitigate this by cross-validating each finding across four independent diagnostics (E1, E4, E5, E7) and a causal ablation (X1) rather than relying on any single point estimate, and we discuss this as a limitation in Sec.~7.
+
+\item {\bf Experiments compute resources}
+    \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Sec.~\ref{sec:mech} notes that the weight-space diagnostic (E1) runs in minutes on a single CPU with no dataloader, while the representational, attention, and ablation probes (E4, E5, E7) and the causal-bridge benchmark (X1) require a GPU box for activation extraction and inference; Sec.~7 states the shared 3.5-hour pretraining budget per arm.
+
+\item {\bf Code of ethics}
+    \item[] Question: Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The work analyzes model checkpoints and synthetic/public benchmark data; it involves no human subjects, private data, or crowdsourcing.
+
+\item {\bf Broader impacts}
+    \item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Sec.~7 frames the positive impact (a cheap, pre-deployment diagnostic for whether a synthetic-data pipeline taught a foundation model a genuine, transferable skill rather than a benchmark-specific artifact); we are not aware of a direct negative-impact pathway specific to this attribution methodology beyond those already inherent to relational foundation models generally.
+
+\item {\bf Safeguards}
+    \item[] Question: Does the paper describe safeguards that have been put in place for responsible release of data or models that have a high risk for misuse?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The released checkpoints are small (19.2M-parameter) research artifacts trained on synthetic and public benchmark relational data; they pose no high-risk dual-use profile requiring gated release.
+
+\item {\bf Licenses for existing assets}
+    \item[] Question: Are the creators or original owners of assets used in the paper properly credited and are the license and terms of use explicitly mentioned and properly respected?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: We cite the RelBench benchmark and the RT architecture and each of the four generators (RelDiff, GRDM, PluRel, RDB-PFN) by their source papers/repositories in the References, and use each only under its stated license and terms.
+
+\item {\bf New assets}
+    \item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The four pretrained RT checkpoints and the mechanistic-analysis probes (E1--E7, X1--X2) are new artifacts of this work; Sec.~\ref{sec:setup}--\ref{sec:bridge} document their construction and intended use, and full documentation will accompany the code/checkpoint release referenced in item 5.
+
+\item {\bf Crowdsourcing and research with human subjects}
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The paper does not involve crowdsourcing or human subjects.
+
+\item {\bf Institutional review board (IRB) approvals or equivalent for research with human subjects}
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The paper does not involve human subjects research.
+
+\item {\bf Declaration of LLM usage}
+    \item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The only LLM-adjacent component is a fixed, off-the-shelf MiniLM text encoder inherited unmodified from the pre-existing RT architecture (Sec.~\ref{sec:setup}); it is not a novel or original component of this paper's core method, which is the mechanistic attribution analysis itself.
+
+\end{enumerate}

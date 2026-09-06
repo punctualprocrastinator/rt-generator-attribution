@@ -1,0 +1,43 @@
+
+=== plurel: 12 databases
+   5/12 dbs, 15 tasks
+   10/12 dbs, 30 tasks
+
+=== rdbpfn: 12 databases
+   5/12 dbs, 51 tasks
+   10/12 dbs, 66 tasks
+
+=== reldiff: 10 databases
+   5/10 dbs, 87 tasks
+   10/10 dbs, 96 tasks
+
+=== grdm: 12 databases
+   5/12 dbs, 111 tasks
+   10/12 dbs, 126 tasks
+
+==============================================================================
+corpus     tasks   R2 own  parent lift  child lift
+grdm          36   -2.281   -1415.7260   -155.5283
+plurel        36    0.306      +0.0605     +0.0331
+rdbpfn        36    0.382      +0.0213     +0.0032
+reldiff       24    0.363      +0.1467     +0.0310
+
+type census: {
+  "plurel": {
+    "numeric": 1132,
+    "boolean": 518,
+    "other": 31
+  },
+  "rdbpfn": {
+    "numeric": 1081,
+    "other": 3
+  },
+  "reldiff": {
+    "numeric": 512,
+    "text_or_categorical": 234
+  },
+  "grdm": {
+    "numeric": 518
+  }
+}
+wrote analysis\out/e2_results.json and e2_per_task.csv
