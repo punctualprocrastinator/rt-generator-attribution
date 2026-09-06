@@ -112,32 +112,5 @@ Checkpoints and corpora are not in the repository. Put the four `*_final.pt` fil
 `model_checkpoints/` and the corpus archives in `data/`, or pass `--ckpt-dir` and the
 corpus paths explicitly.
 
-## A negative result worth knowing about
 
-`e6_linear_probes.py` does not discriminate between the arms, and the reason is
-structural rather than a bug. The RT is a residual stack, so the input embedding stays
-linearly present in the residual stream at every depth. Any probe target that is a
-function of a cell's own inputs is therefore decodable by a linear map without the network
-having learned anything, which is why an untrained model scores 1.000 on parent-table
-identity. Row degree and parent-table identity are both read off `f2p_nbr_idxs`, an input.
 
-A probe that would discriminate has to target something requiring computation, such as a
-masked cell's parents' values. The E6 plan in `MECH_INTERP_EXPERIMENTS.md` has this flaw
-for probes (a), (b) and (e) as written.
-
-## A methodological note
-
-Weight-space measurements failed to predict their functional counterparts three separate
-times here. E1's clustering inverted under CKA. Per-head weight concentration said all
-four models were equally uniform, but knocking heads out behaviourally showed only RelDiff
-has load-bearing ones. And an encoder deviation that looked large per parameter turned out
-to be the text pathway alone, with scalar featurization effectively frozen.
-
-Weight-space structure is a hypothesis about function, not evidence of it. Every claim in
-the paper that rests on weights has a behavioural counterpart for that reason.
-
-## Status
-
-E3, the cross-generator transfer matrix, is written but unrun: it needs the four
-preprocessed corpora, which were not retrievable at the time. Everything else in
-`analysis/` has been run and its output is in `analysis/out/`.
